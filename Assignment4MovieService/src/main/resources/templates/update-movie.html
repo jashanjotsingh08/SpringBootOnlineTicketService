@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+	crossorigin="anonymous"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+	integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+	crossorigin="anonymous">
+<title th:utext="${title}" />
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+			<div class="container">
+				<ul class="navbar-nav text-white">
+					<li class="nav-item"><a class="navbar-brand">Movie Express</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/index}">Movie
+							List</a></li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+	<div class="text-center jumbotron">
+		<h2 class="display-4">Update Movie</h2>
+	</div>
+	<div class="container">
+		<form action="#" th:action="@{/updateMovie/{id}(id=${movieId})}"
+			th:object="${movie}" method="post">
+
+			<input class="form-control" type="number" th:field="*{movieId}"
+				hidden />
+
+			<div class="form-row mt-3">
+				<div class="col-md-2">
+					<label>Movie Name</label>
+				</div>
+				<div class="col-md-10">
+					<input class="form-control" type="text" th:field="*{movieName}" />
+					<span th:if="${#fields.hasErrors('movieName')}"
+						th:errors="*{movieName}" class="text-danger"> </span>
+				</div>
+			</div>
+			<div class="form-row mt-3">
+				<div class="col-md-2">
+					<label>Movie Language</label>
+				</div>
+				<div class="col-md-10">
+					<input class="form-control" type="text" th:field="*{movieLanguage}" />
+					<span th:if="${#fields.hasErrors('movieLanguage')}"
+						th:errors="*{movieLanguage}" class="text-danger"> </span>
+				</div>
+			</div>
+
+			<div class="form-row mt-3">
+				<div class="col-md-2">
+					<label>Movie Genre</label>
+				</div>
+				<div class="col-md-10">
+					<input class="form-control" type="text" th:field="*{movieGenre}" />
+					<span th:if="${#fields.hasErrors('movieGenre')}"
+						th:errors="*{movieGenre}" class="text-danger"> </span>
+				</div>
+			</div>
+			<div class="form-row mt-3">
+				<div class="col-md-2">
+					<label>Duration</label>
+				</div>
+				<div class="col-md-10 ">
+					<input class="form-control" type="datetime" th:field="*{duration}"
+						required /> <small id="timeHelp" class="form-text text-muted">In
+						Minutes.</small> <span th:if="${#fields.hasErrors('duration')}"
+						th:errors="*{durration}" class="text-danger"></span>
+				</div>
+			</div>
+
+			<div class="text-center mt-3">
+				<input class="btn btn-primary" type="submit" value="Submit" />
+			</div>
+		</form>
+	</div>
+	<footer class="border-top footer text-muted mt-5">
+		<div class="container">&copy; 2020 -
+			Arshdeep_Jashanjot_COMP303_Lab04</div>
+	</footer>
+</body>
+</html>
