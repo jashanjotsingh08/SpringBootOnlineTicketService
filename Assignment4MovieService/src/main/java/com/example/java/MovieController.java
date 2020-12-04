@@ -2,6 +2,8 @@ package com.example.java;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -52,17 +54,17 @@ public class MovieController {
 	}
 
 	@GetMapping(value = "/addMovieForm")
-	public String addMovieForm(Model model) {
-		model.addAttribute("movie", new Movie());
+	public String addMovieForm(Movie movie,Model model) {
+		//model.addAttribute("movie", new Movie());
 		model.addAttribute("title", "Add-Movie");
 		return "add-movie";
 	}
 
 	@PostMapping(value = "/addMovie")
-	public String addMovie(@ModelAttribute("movie") Movie movie, UriComponentsBuilder uriBuilder, BindingResult result,
+	public String addMovie(@Valid @ModelAttribute("movie")  Movie movie, UriComponentsBuilder uriBuilder, BindingResult result,
 			Model model) {
 		if (result.hasErrors()) {
-			return "index";
+			return "add-movie";
 		}
 		try {
 			movieRepository.save(movie);
@@ -87,7 +89,7 @@ public class MovieController {
 
 	@RequestMapping(value = "/updateMovie/{id}", consumes = "application/x-www-form-urlencoded", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
-	public ModelAndView updateMovie(@PathVariable("id") int movieId, @ModelAttribute("movie") Movie movie,
+	public ModelAndView updateMovie(@PathVariable("id") int movieId,@Valid @ModelAttribute("movie") Movie movie,
 			UriComponentsBuilder uriBuilder, BindingResult result, Model model) throws Exception {
 		if (result.hasErrors()) {
 			return index();

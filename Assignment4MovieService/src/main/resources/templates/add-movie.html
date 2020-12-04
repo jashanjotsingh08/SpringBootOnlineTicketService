@@ -13,11 +13,15 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
 		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
 		crossorigin="anonymous"></script>
+		<script type="text/javascript" src="https://raw.githubusercontent.com/nadchif/html-duration-picker.js/master/dist/html-duration-picker.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
 		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 		crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
 		integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+		<script src="https://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.js"></script>
+		<link href="https://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.css" rel="stylesheet"/>
+		
 </head>
 
 <body>
@@ -43,13 +47,16 @@
 			<h2 class="alert alert-danger" th:text="${message}"></h2>
 		</div>
 		<div class="col-md-10 offset-md-1 mt-3">
+		
 			<form action="#" th:action="@{/addMovie}" th:object="${movie}" method="post">
+			
 				<div class="form-row mt-3">
+				
 					<div class="col-md-2">
 						<label>Movie Name</label>
 					</div>
 					<div class="col-md-10">
-						<input class="form-control" type="text" th:field="*{movieName}" required /> 
+						<input class="form-control" type="text" id="movieName" th:field="*{movieName}"  /> 
 						<span th:if="${#fields.hasErrors('movieName')}" th:errors="*{movieName}" class="text-danger"></span>
 					</div>
 				</div>
@@ -58,7 +65,7 @@
 						<label>Movie Language</label>
 					</div>
 					<div class="col-md-10">
-						<select class="form-control" th:field="*{movieLanguage}" required>
+						<select class="form-control" id="movieLanguage" th:field="*{movieLanguage}" >
 							<option th:value="English" th:text="English">
 							<option th:value="French" th:text="French">
 						</select> 
@@ -71,7 +78,7 @@
 						<label>Movie Genre</label>
 					</div>
 					<div class="col-md-10">
-						<input class="form-control" type="text" th:field="*{movieGenre}" required /> 
+						<input class="form-control" id="movieGenre" type="text" th:field="*{movieGenre}"  /> 
 							<span th:if="${#fields.hasErrors('movieGenre')}" th:errors="*{movieGenre}" class="text-danger"></span>
 					</div>
 				</div>
@@ -80,7 +87,7 @@
 						<label>Duration</label>
 					</div>
 					<div class="col-md-10 ">
-						<input class="form-control" type="datetime-local" th:field="*{duration}" required /> 
+						<input class="form-control" type="text" id="duration" th:field="*{duration}"  /> 
 							<small id="timeHelp" class="form-text text-muted">In Minutes.</small> 
 							<span th:if="${#fields.hasErrors('duration')}" th:errors="*{durration}" class="text-danger"></span>
 					</div>
@@ -96,6 +103,18 @@
 		<div class="container">&copy; 2020 -
 			Arshdeep_Jashanjot_COMP303_Lab04</div>
 	</footer>
+	<script type="text/javascript">
+	var timepicker = new TimePicker('duration', {
+		  lang: 'en',
+		  theme: 'dark'
+		});
+		timepicker.on('change', function(evt) {
+		  
+		  var value = (evt.hour || '00') + ':' + (evt.minute || '00');
+		  evt.element.value = value;
+
+		});
+	</script>
 </body>
 
 </html>

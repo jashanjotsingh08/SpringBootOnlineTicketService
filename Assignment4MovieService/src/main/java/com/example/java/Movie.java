@@ -1,6 +1,7 @@
 package com.example.java;
 
 import java.security.interfaces.DSAPrivateKey;
+import java.sql.Time;
 import java.time.Duration;
 
 import javax.annotation.processing.Generated;
@@ -10,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.PastOrPresent;
@@ -23,32 +25,26 @@ public class Movie {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Movie(int movieId, Duration duration, String movieGenre, String movieLanguage, String movieName) {
-		this.movieId = movieId;
-		this.duration = duration;
-		this.movieGenre = movieGenre;
-		this.movieLanguage = movieLanguage;
-		this.movieName = movieName;
-	}
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int movieId;
 
-	@NotNull
-	@Past
-	@Column(name = "duration")
-	private Duration duration;
 	
-	@NotNull
+	@NotBlank(message = "Please enter time of the movie")
+	@Column(name = "duration")
+	private String duration;
+	
+	@NotBlank(message = "Please enter genre of the movie")
 	@Column(name = "movie_genre")
 	private String movieGenre;
 	
-	@NotNull
+	@NotBlank(message = "Please select language of the movie")
 	@Column(name = "movie_language")
 	private String movieLanguage;
 
-	@NotNull
+	@NotBlank(message = "Please enter name of the movie")
 	@Column(name = "movie_name")
 	private String movieName;
 
@@ -60,11 +56,11 @@ public class Movie {
 		this.movieId = movieId;
 	}
 
-	public Duration getDuration() {
+	public String getDuration() {
 		return duration;
 	}
 
-	public void setDuration(Duration duration) {
+	public void setDuration(String duration) {
 		this.duration = duration;
 	}
 
