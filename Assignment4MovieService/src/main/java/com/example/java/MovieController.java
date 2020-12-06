@@ -7,7 +7,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +19,15 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UriComponentsBuilder;
 
+
 @Controller
 public class MovieController {
 
 	@Autowired
 	MovieRepository movieRepository;
+	
+	String[] movieLanguageList = {"English","French","Punjabi","Hindi"};
+	String[] movieGenreList = {"Action","Drama","Romance","Horror","Comedy"};
 
 	@RequestMapping("/")
 	public ModelAndView home() {
@@ -55,26 +58,29 @@ public class MovieController {
 
 	@GetMapping(value = "/addMovieForm")
 	public String addMovieForm(Movie movie,Model model) {
-		//model.addAttribute("movie", new Movie());
+		model.addAttribute("movie", new Movie());
+		model.addAttribute("genreList", movieGenreList);
+		model.addAttribute("languageList", movieLanguageList);
 		model.addAttribute("title", "Add-Movie");
 		return "add-movie";
 	}
 
 	@PostMapping(value = "/addMovie")
-	public String addMovie(@Valid @ModelAttribute("movie")  Movie movie, UriComponentsBuilder uriBuilder, BindingResult result,
-			Model model) {
+	public ModelAndView addMovie(@Valid Movie movie, BindingResult result, ModelAndView model) {
 		if (result.hasErrors()) {
-			return "add-movie";
+			model.addObject("movie",movie);
+			model.setViewName("add-movie");
+			return model;
 		}
 		try {
 			movieRepository.save(movie);
-			model.addAttribute("movies", movieRepository.findAll());
-			return "index";
+			return index();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			String messageString = e.getMessage();
-			model.addAttribute("message", messageString);
-			return "index";
+			model.addObject("message", messageString);
+			model.setViewName("add-movie");
+			return model;
 		}
 	}
 

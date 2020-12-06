@@ -27,15 +27,15 @@
 		<nav class="navbar navbar-expand-md bg-dark navbar-dark">
 			<div class="container">
 				<ul class="navbar-nav text-white">
-					<li class="nav-item"><a class="navbar-brand">Movie Express</a>
+					<li class="nav-item"><a class="navbar-brand">Customer Express</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" th:href="@{/index}">Movie List</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/index}">Customer List</a></li>
 				</ul>
 			</div>
 		</nav>
 	</header>
 	<div class="jumbotron text-center">
-		<h1 class="display-4">Movie Form</h1>
+		<h1 class="display-4">Customer Form</h1>
 	</div>
 	<div class="container ">
 		<div class="text-center" th:if="${message}!=null">
@@ -43,54 +43,58 @@
 		</div>
 		<div class="col-md-10 offset-md-1 mt-3">
 		
-			<form action="#" th:action="@{/addMovie}" th:object="${movie}" method="post">
+			<form action="#" th:action="@{/addCustomer}" th:object="${customer}" method="post">
 			
 				<div class="form-row mt-3">
 				
 					<div class="col-md-2">
-						<label>Movie Name</label>
+						<label>Name</label>
 					</div>
 					<div class="col-md-10">
-						<input class="form-control" type="text" id="movieName" th:field="*{movieName}"  /> 
-						<span th:if="${#fields.hasErrors('movieName')}" th:errors="*{movieName}" class="text-danger"></span>
+						<input class="form-control" type="text" id="customerName" th:field="*{customerName}"  /> 
+						<span th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}" class="text-danger"></span>
 					</div>
 				</div>
 				<div class="form-row mt-3">
 					<div class="col-md-2">
-						<label>Movie Language</label>
+						<label>Address</label>
 					</div>
 					<div class="col-md-10">
-						<select class="form-control" id="movieLanguage" th:field="*{movieLanguage}" >
-							<option th:value="English" th:text="English">
-							<option th:value="French" th:text="French">
-						</select> 
-						<span th:if="${#fields.hasErrors('movieLanguage')}" th:errors="*{movieLanguage}" class="text-danger"></span>
+						<input class="form-control" id="address" type="text" th:field="*{address}" />
+						<span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="text-danger"></span>
 					</div>
 				</div>
 
 				<div class="form-row mt-3">
 					<div class="col-md-2">
-						<label>Movie Genre</label>
+						<label>City</label>
 					</div>
 					<div class="col-md-10">
-						<input class="form-control" id="movieGenre" type="text" th:field="*{movieGenre}"  /> 
-						<span th:if="${#fields.hasErrors('movieGenre')}" th:errors="*{movieGenre}" class="text-danger"></span>
+						<input class="form-control" id="city" type="text" th:field="*{city}"  /> 
+						<span th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="text-danger"></span>
 					</div>
 				</div>
 				<div class="form-row mt-3">
 					<div class="col-md-2">
-						<label>Duration</label>
+						<label>Email</label>
 					</div>
 					<div class="col-md-10 ">
-						<input class="form-control" type="datetime"  id="duration" th:field="*{duration}" />
-							<small id="timeHelp" class="form-text text-muted">In Minutes.</small> 
-							<span th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}" class="text-danger"></span>
+						<input class="form-control" type="email"  id="email" th:field="*{email}" />
+						<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="form-row mt-3">
+					<div class="col-md-2">
+						<label>Phone Number</label>
+					</div>
+					<div class="col-md-10 ">
+						<input class="form-control" type="tel"  id="phoneNumber" th:field="*{phoneNumber}" />
+						<span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phomeNumber}" class="text-danger"></span>
 					</div>
 				</div>
 				<div class="text-center mt-3">
 					<input class="btn btn-primary" type="submit" value="Submit" />
 				</div>
-
 			</form>
 		</div>
 	</div>

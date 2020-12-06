@@ -51,7 +51,7 @@
 						th:text="${movie.movieName}"></a></td>
 					<td th:text="${movie.movieLanguage}">Movie Language</td>
 					<td th:text="${movie.movieGenre}">Movie Genre</td>
-					<td th:text="${movie.duration}">Duration</td>
+					<td th:text="${#dates.format(movie.duration, 'HH:mm')}">Duration</td>
 					<td><a th:href="@{/update/{id}(id=${movie.movieId})}"
 						class="btn btn-primary"> <i class="fas fa-user-edit ml-2"></i>
 					</a></td>
