@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+	integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+	crossorigin="anonymous">
+
+<title th:text="${ticket.movieName}"></title>
+</head>
+<body class="bg-light">
+	<header>
+		<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+			<div class="container">
+				<ul class="navbar-nav">
+					<li class="nav-item"><a class="navbar-brand text-white">Ticket
+							Express</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/index}">Ticket
+							List</a></li>
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/addTicketForm}">Add Ticket</a></li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+	<div class="jumbotron text-center">
+		<h2 class="display">Ticket Details</h2>
+	</div>
+	<div class="">
+		<div class="container" th:if="${ticket != null}">
+
+			<div class="text-center">
+				<table class="table table-bordered table-light">
+					<tbody class="">
+						<tr>
+							<td>Id</td>
+							<td th:text="${ticket.ticketId}"></td>
+						</tr>
+						<tr>
+							<td>Movie Name</td>
+							<td th:text="${ticket.movieName}"></td>
+						</tr>
+						<tr>
+							<td>Date</td>
+							<td th:text="${ticket.date}"></td>
+						</tr>
+						<tr>
+							<td>Time</td>
+							<td th:text="${ticket.time}"></td>
+						</tr>
+						<tr>
+							<td>Venue</td>
+							<td th:text="${ticket.venue}"></td>
+						</tr>
+						<tr>
+							<td>No. of Tickets:</td>
+							<td th:text="${ticket.quantity}"></td>
+						</tr>
+						<tr>
+							<td>Customer Name</td>
+							<td th:text="${ticket.custName}"></td>
+						</tr>
+						<tr>
+							<td>Amount Paid</td>
+							<td th:text="${ticket.amountPaid}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<strong> <a th:href="@{/update/{id}(id=${ticket.ticketId})}"
+				class="btn btn-primary">Update Ticket</a> <a
+				th:href="@{/delete/{id}(id=${ticket.ticketId})}"
+				class="btn btn-danger">Delete Ticket</a><br />
+			<br />
+			<br /> <a class="btn btn-secondary" href="/">Go back</a>
+			</strong>
+		</div>
+	</div>
+	<footer class="border-top footer text-muted mt-5">
+		<div class="container">&copy; 2020 -
+			Arshdeep_Jashanjot_COMP303_Lab04</div>
+	</footer>
+</body>
+</html>

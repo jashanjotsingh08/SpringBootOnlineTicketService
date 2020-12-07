@@ -37,7 +37,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 @Table(name = "movies")
 public class Movie {
 
-	public Movie(int movieId, @PastOrPresent(message = "Please follow the pattern HH:mm") Date duration,
+	public Movie(int movieId, @PastOrPresent(message = "Please follow the pattern HH:mm") String duration,
 			@NotNull @NotBlank(message = "Please enter genre of the movie") String movieGenre,
 			@NotNull @NotBlank(message = "Please select language of the movie") String movieLanguage,
 			@NotNull @NotBlank(message = "Please enter name of the movie") String movieName) {
@@ -59,12 +59,12 @@ public class Movie {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int movieId;
 
-	@NotNull
-	@DateTimeFormat(pattern = "HH:mm")
-	@Temporal(TemporalType.TIME)
-	@PastOrPresent(message = "Please follow the pattern HH:mm")
+	@NotNull(message = "please enter the duration")
+	@NotBlank(message = "Please enter the duration")
+	@Pattern(regexp = "^([0-3]):[0-5][0-9]$",message = "The duration can only be in H:mm fomat with maximum duration of 3:59")
+	@DateTimeFormat(pattern = "H:mm")
 	@Column(name = "duration")
-	private Date duration;
+	private String duration;
 	
 	@NotNull
 	@NotBlank(message = "Please enter genre of the movie")
@@ -97,11 +97,11 @@ public class Movie {
 		this.movieId = movieId;
 	}
 
-	public Date getDuration() {
+	public String getDuration() {
 		return duration;
 	}
 
-	public void setDuration(Date duration) {
+	public void setDuration(String duration) {
 		this.duration = duration;
 	}
 

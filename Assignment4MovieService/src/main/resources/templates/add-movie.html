@@ -61,8 +61,8 @@
 					</div>
 					<div class="col-md-10">
 						<select class="form-control" id="movieLanguage" th:field="*{movieLanguage}" >
-							<option th:value="English" th:text="English">
-							<option th:value="French" th:text="French">
+							<option value="">Select Language........</option>
+							<option th:each="language : ${languageList}" th:text="${language}" th:value="${language}">
 						</select> 
 						<span th:if="${#fields.hasErrors('movieLanguage')}" th:errors="*{movieLanguage}" class="text-danger"></span>
 					</div>
@@ -73,7 +73,10 @@
 						<label>Movie Genre</label>
 					</div>
 					<div class="col-md-10">
-						<input class="form-control" id="movieGenre" type="text" th:field="*{movieGenre}"  /> 
+						<select class="form-control" id="movieGenre" th:field="*{movieGenre}">
+							<option value="">Select Genre........</option>
+							<option th:each="genre : ${genreList}" th:text="${genre}" th:value="${genre}">
+						</select> 
 						<span th:if="${#fields.hasErrors('movieGenre')}" th:errors="*{movieGenre}" class="text-danger"></span>
 					</div>
 				</div>
@@ -82,8 +85,7 @@
 						<label>Duration</label>
 					</div>
 					<div class="col-md-10 ">
-						<input class="form-control" type="datetime"  id="duration" th:field="*{duration}" />
-							<small id="timeHelp" class="form-text text-muted">In Minutes.</small> 
+						<input class="form-control" type="text"  id="duration" th:field="*{duration}" />
 							<span th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}" class="text-danger"></span>
 					</div>
 				</div>

@@ -2,7 +2,7 @@
 <html xmlns:th="http://thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Movie List</title>
+<title>Ticket List</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -18,51 +18,55 @@
 		<nav class="navbar navbar-expand-md bg-dark navbar-dark">
 			<div class="container">
 				<ul class="navbar-nav">
-					<li class="nav-item"><a class="navbar-brand text-white">Movie
+					<li class="nav-item"><a class="navbar-brand text-white">Ticket
 							Express</a></li>
 					<li class="nav-item"><a class="nav-link"
-						th:href="@{/addMovieForm}">Add Movie</a></li>
+						th:href="@{/addTicketForm}">Add Ticket</a></li>
 				</ul>
 			</div>
 		</nav>
 	</header>
 	<div class="container">
 		<div class="text-center mt-5 alert alert-warning"
-			th:if="${movies.empty}">
-			<h2 class="display-4">No Movies Added Yet</h2>
+			th:if="${tickets.empty}">
+			<h2 class="display-4">No Tickets Added Yet</h2>
 		</div>
-		<div class="text-center" th:if="${!movies.empty}">
+		<div class="text-center" th:if="${!tickets.empty}">
 			<div class="alert alert-secondary mt-5">
-				<h2 class="my-5">Movies</h2>
+				<h2 class="my-5">Tickets</h2>
 			</div>
 			<table border="1" class="table table-striped table-responsive-md">
 				<tr>
-					<th>Movie Id</th>
+					<th>Ticket Id</th>
 					<th>Movie Name</th>
-					<th>Movie Language</th>
-					<th>Movie Genre</th>
-					<th>Movie Duration<small>(Minutes)*</small></th>
+					<th>Date</th>
+					<th>Time</th>
+					<th>Venue</th>
+					<th>Customer Name</th>
+					<th>Amount Paid</th>
 					<th>Edit</th>
 					<th>Delete</th>
 				</tr>
-				<tr th:Each="movie : ${movies}">
-					<td th:text="${movie.movieId}">Movie Id</td>
-					<td><a th:href="@{/movies/{id}(id=${movie.movieId})}"
-						th:text="${movie.movieName}"></a></td>
-					<td th:text="${movie.movieLanguage}">Movie Language</td>
-					<td th:text="${movie.movieGenre}">Movie Genre</td>
-					<td th:text="${movie.duration}">Duration</td>
-					<td><a th:href="@{/update/{id}(id=${movie.movieId})}"
+				<tr th:Each="ticket : ${tickets}">
+					<td th:text="${ticket.ticketId}">Ticket Id</td>
+					<td><a th:href="@{/tickets/{id}(id=${ticket.ticketId})}"
+						th:text="${ticket.movieName}">Movie Name</a></td>
+					<td th:text="${ticket.date}">Date</td>
+					<td th:text="${ticket.time}">Time</td>
+					<td th:text="${ticket.venue}">Venue</td>
+					<td th:text="${ticket.custName}">Customer Name</td>
+					<td th:text="${ticket.amountPaid}">Amount Paid</td>
+					<td><a th:href="@{/update/{id}(id=${ticket.ticketId})}"
 						class="btn btn-primary"> <i class="fas fa-user-edit ml-2"></i>
 					</a></td>
-					<td><a th:href="@{/delete/{id}(id=${movie.movieId})}"
+					<td><a th:href="@{/delete/{id}(id=${ticket.ticketId})}"
 						class="btn btn-danger"> <i class="fas fa-user-times ml-2"></i>
 					</a></td>
 				</tr>
 			</table>
 		</div>
-		<strong><a class="btn btn-primary" th:href="@{/addMovieForm}">Add
-				Movie</a></strong> <strong><a class="btn btn-secondary" href="/">Go
+		<strong><a class="btn btn-primary" th:href="@{/addTicketForm}">Add
+				Ticket</a></strong> <strong><a class="btn btn-secondary" href="/">Go
 				back</a></strong>
 	</div>
 	<footer class="border-top footer text-muted mt-5">

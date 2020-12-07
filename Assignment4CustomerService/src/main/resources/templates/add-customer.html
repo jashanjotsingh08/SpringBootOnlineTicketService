@@ -29,7 +29,20 @@
 				<ul class="navbar-nav text-white">
 					<li class="nav-item"><a class="navbar-brand">Customer Express</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" th:href="@{/index}">Customer List</a></li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/index}">Customer List</a>
+					</li>
+					
+				</ul>
+				<ul class="navbar-nav">
+				<li class="nav-item">
+            			<a class="nav-link text-white ">Hello [[${#httpServletRequest.remoteUser}]]!</a>
+       				</li>
+       				<li class="nav-item">
+       					<form th:action="@{/logout}" method="post">
+            				<input class="nav-link btn btn-link text-white" type="submit" value="Sign Out"/>
+        				</form>
+       				</li>
 				</ul>
 			</div>
 		</nav>
@@ -51,8 +64,8 @@
 						<label>Name</label>
 					</div>
 					<div class="col-md-10">
-						<input class="form-control" type="text" id="customerName" th:field="*{customerName}"  /> 
-						<span th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}" class="text-danger"></span>
+						<input class="form-control" type="text" id="customerName" th:field="*{custName}"  /> 
+						<span th:if="${#fields.hasErrors('custName')}" th:errors="*{custName}" class="text-danger"></span>
 					</div>
 				</div>
 				<div class="form-row mt-3">
@@ -79,7 +92,7 @@
 						<label>Email</label>
 					</div>
 					<div class="col-md-10 ">
-						<input class="form-control" type="email"  id="email" th:field="*{email}" />
+						<input class="form-control" type="text"  id="email" th:field="*{email}" />
 						<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>
 					</div>
 				</div>
@@ -88,8 +101,8 @@
 						<label>Phone Number</label>
 					</div>
 					<div class="col-md-10 ">
-						<input class="form-control" type="tel"  id="phoneNumber" th:field="*{phoneNumber}" />
-						<span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phomeNumber}" class="text-danger"></span>
+						<input class="form-control" type="text"  id="phoneNumber" th:field="*{phoneNumber}" />
+						<span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="text-danger"></span>
 					</div>
 				</div>
 				<div class="text-center mt-3">
@@ -102,15 +115,5 @@
 		<div class="container">&copy; 2020 -
 			Arshdeep_Jashanjot_COMP303_Lab04</div>
 	</footer>
-	<script type="text/javascript">
-	var timepicker = new TimePicker('duration', {
-		  lang: 'en',
-		  theme: 'dark'
-		});
-		timepicker.on('change', function(evt) {  
-		  var value = (evt.hour || '00') + ':' + (evt.minute || '00');
-		  evt.element.value = value;
-		});
-	</script>
 </body>
 </html>

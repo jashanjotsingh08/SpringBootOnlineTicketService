@@ -1,0 +1,223 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8" />
+<title th:utext="${title}"></title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+	crossorigin="anonymous"></script>
+<script type="text/javascript"
+	src="https://raw.githubusercontent.com/nadchif/html-duration-picker.js/master/dist/html-duration-picker.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+	integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.js"></script>
+<link
+	href="https://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.css"
+	rel="stylesheet" />
+
+</head>
+
+<body>
+	<header>
+		<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+			<div class="container">
+				<ul class="navbar-nav text-white">
+					<li class="nav-item"><a class="navbar-brand">Ticket
+							Express</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/index}">Ticket
+							List</a></li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+	<div class="jumbotron text-center">
+		<h1 class="display-4">Ticket Form</h1>
+	</div>
+
+
+	<div class="container ">
+		<div class="text-center" th:if="${message}!=null">
+			<h2 class="alert alert-danger" th:text="${message}"></h2>
+		</div>
+		<div class="col-md-10 offset-md-1 mt-3">
+
+			<form action="#" th:action="@{/addTicket}" th:object="${ticket}"
+				method="post">
+
+				<div class="form-row mt-3">
+
+					<div class="col-md-2">
+						<label>Movie Name</label>
+					</div>
+					<div class="col-md-10">
+						<select class="form-control" id="movieName"
+							th:field="*{movieName}">
+							<option value="">Select Movie Name...</option>
+							<option th:value="Avengers" th:text="Avengers">
+							<option th:value="Titanic" th:text="Titanic">
+							<option th:value="HomeAlone" th:text="HomeAlone">
+							<option th:value="Transformer" th:text="Transformer">
+						</select> <span th:if="${#fields.hasErrors('movieName')}"
+							th:errors="*{movieName}" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="form-row mt-3">
+					<div class="col-md-2">
+						<label>Date</label>
+					</div>
+					<div class="col-md-10">
+						<input class="form-control" type="date" id="date"
+							th:field="*{date}" /> <span
+							th:if="${#fields.hasErrors('date')}" th:errors="*{date}"
+							class="text-danger"></span>
+					</div>
+				</div>
+
+				<div class="form-row mt-3">
+					<div class="col-md-2">
+						<label>Time</label>
+					</div>
+					<div class="col-md-10">
+						<input class="form-control" id="time" type="text"
+							th:field="*{time}" /> <span
+							th:if="${#fields.hasErrors('time')}" th:errors="*{time}"
+							class="text-danger"></span>
+					</div>
+				</div>
+				<div class="form-row mt-3">
+					<div class="col-md-2">
+						<label>Venue</label>
+					</div>
+					<div class="col-md-10 ">
+						<select class="form-control" id="venue" th:field="*{venue}">
+							<option th:value="Brampton" th:text="Brampton">
+							<option th:value="Missisauga" th:text="Missisauga">
+							<option th:value="Scarborough" th:text="Scarorough">
+							<option th:value="Vaughn" th:text="Vaughn">
+						</select> <span th:if="${#fields.hasErrors('venue')}" th:errors="*{venue}"
+							class="text-danger"></span>
+					</div>
+				</div>
+				<div class="form-row mt-3">
+					<div class="col-md-2">
+						<label>No. of Tickets</label>
+					</div>
+					<div class="col-md-10 ">
+						<select class="form-control" id="quantity" onchange="calc()"
+							th:field="*{quantity}">
+							<option value="">Select Quantity...</option>
+							<option th:value="1" th:text="1">
+							<option th:value="2" th:text="2">
+							<option th:value="3" th:text="3">
+							<option th:value="4" th:text="4">
+							<option th:value="5" th:text="5">
+							<option th:value="6" th:text="6">
+							<option th:value="7" th:text="7">
+							<option th:value="8" th:text="8">
+						</select> <span th:if="${#fields.hasErrors('quantity')}"
+							th:errors="*{quantity}" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="form-row mt-3">
+					<div class="col-md-2">
+						<label>Customer Name</label>
+					</div>
+					<div class="col-md-10 ">
+						<input class="form-control" type="text" id="custName"
+							th:field="*{custName}" /> <span
+							th:if="${#fields.hasErrors('custName')}" th:errors="*{custName}"
+							class="text-danger"></span>
+					</div>
+				</div>
+				<div class="form-row mt-3">
+					<div class="col-md-2">
+						<label>Amount you need to pay</label>
+					</div>
+					<div class="col-md-10 ">
+						= <label>Price Per ticket : $<span id="ticket_price">7</span></label>
+						<br> <label>Booking fee : $2</label> <br> <label>Subtotal
+							: </label><span class="form-control" id="total"></span> 
+							<input  class="form-control" name="amountPaid" id="amountPaid"
+							type="text" th:field="*{amountPaid}" hidden/> <span
+							th:if="${#fields.hasErrors('amountPaid')}"
+							th:errors="*{amountPaid}" class="text-danger"></span>
+
+
+
+
+					</div>
+				</div>
+				<div class="container">
+					<div class="row ">
+						<div class="col ml-4 mt-5">
+							<h4>Payment Details :</h4>
+						</div>
+					</div>
+					<div class="row ">
+						<div class="col-md-3 ml-5">
+							<label> Card Number</label>
+						</div>
+						<div class="col-md-6">
+							<input class="form-control" type="text" />
+						</div>
+					</div>
+					<div class="row ">
+						<div class="col-md-3 ml-5">
+							<label> Expiry Date</label>
+						</div>
+						<div class="col-md-6">
+							<input class="form-control" type="text" placeholder="MMYY" />
+						</div>
+					</div>
+					<div class="row ">
+						<div class="col-md-3 ml-5">
+							<label> CVV</label>
+						</div>
+						<div class="col-md-6">
+							<input class="form-control" type="password" placeholder="123" />
+						</div>
+					</div>
+				</div>
+				<div class="text-center mt-3">
+					<input class="btn btn-primary" type="submit" value="Submit" />
+				</div>
+				<script>
+function calc() 
+{
+  var ticketPrice = document.getElementById("ticket_price").innerHTML;
+  var quantity = document.getElementById("quantity").value;
+  var bookingfee = 2;
+  var amountPaid = parseFloat(ticketPrice) * quantity + bookingfee ;
+  if (!isNaN(amountPaid))
+    document.getElementById("total").innerHTML = amountPaid
+	document.getElementById("amountPaid").value = amountPaid
+
+}
+</script>
+			</form>
+		</div>
+	</div>
+	<footer class="border-top footer text-muted mt-5">
+		<div class="container">&copy; 2020 -
+			Arshdeep_Jashanjot_COMP303_Lab04</div>
+	</footer>
+</body>
+
+</html>

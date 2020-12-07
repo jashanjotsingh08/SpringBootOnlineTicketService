@@ -69,6 +69,8 @@ public class MovieController {
 	public ModelAndView addMovie(@Valid Movie movie, BindingResult result, ModelAndView model) {
 		if (result.hasErrors()) {
 			model.addObject("movie",movie);
+			model.addObject("genreList", movieGenreList);
+			model.addObject("languageList", movieLanguageList);
 			model.setViewName("add-movie");
 			return model;
 		}
@@ -89,19 +91,31 @@ public class MovieController {
 
 		model.addAttribute("movie", movieRepository.getOne(movieId));
 		model.addAttribute("movieId", movieId);
+		model.addAttribute("genreList", movieGenreList);
+		model.addAttribute("languageList", movieLanguageList);
 		model.addAttribute("title", "Update Movie");
 		return "update-movie";
 	}
 
-	@RequestMapping(value = "/updateMovie/{id}", consumes = "application/x-www-form-urlencoded", method = RequestMethod.POST)
-	@ResponseStatus(value = HttpStatus.OK)
-	public ModelAndView updateMovie(@PathVariable("id") int movieId,@Valid @ModelAttribute("movie") Movie movie,
-			UriComponentsBuilder uriBuilder, BindingResult result, Model model) throws Exception {
+	@PostMapping(value = "/update/{id}")
+	public ModelAndView updateMovie(@PathVariable("id") int movieId, @Valid Movie movie,
+			 BindingResult result, ModelAndView model){
 		if (result.hasErrors()) {
-			return index();
+			model.addObject("movie", movie);
+			model.addObject("movieId", movieId);
+			model.addObject("genreList", movieGenreList);
+			model.addObject("languageList", movieLanguageList);
+			model.setViewName("update-movie");
+			return model;
 		}
-		movie.setMovieId(movieId);
-		movieRepository.save(movie);
+		try {
+			movie.setMovieId(movieId);
+			movieRepository.save(movie);
+		} catch (Exception e) {
+			model.addObject("message", e.getMessage());
+			model.setViewName("update-movie");
+			return model;
+		}
 
 		return index();
 	}

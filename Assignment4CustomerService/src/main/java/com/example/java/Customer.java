@@ -9,9 +9,11 @@ import javax.persistence.Table;
 import javax.validation.Constraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.domain.AfterDomainEventPublication;
 
 import io.micrometer.core.annotation.Counted;
@@ -26,11 +28,11 @@ public class Customer {
 	}
 
 	public Customer(int custId,
-			@NotEmpty(message = "Pleas enter your name") @Pattern(regexp = "^[A-Za-z]*$", message = "Non-Numeric values only") @Size(min = 4, max = 40) String custName,
-			@NotEmpty(message = "Please enter your address") @Size(min = 6, max = 50) String address,
-			@NotEmpty(message = "Please enter your city") @Size(min = 4, max = 30) String city,
-			@NotEmpty(message = "Please enter your email") @Email @Size(min = 4, max = 50) String email,
-			@NotEmpty(message = "Please enter your phoneNumber") @Pattern(regexp = "(^$|[0-9]{10})", message = "Please enter 10 numeric values") @Size(min = 10, max = 10) String phoneNumber) {
+			@NotNull(message = "Pleas enter your name") @Pattern(regexp = "^[A-Za-z]*$", message = "Non-Numeric values only") @Size(min = 4, max = 40) String custName,
+			@NotNull(message = "Please enter your address") @Size(min = 6, max = 50) String address,
+			@NotNull(message = "Please enter your city") @Size(min = 4, max = 30) String city,
+			@NotNull(message = "Please enter your email") @Email @Size(min = 4, max = 50) String email,
+			@NotNull(message = "Please enter your phoneNumber") @Pattern(regexp = "(^$|[0-9]{10})", message = "Please enter 10 numeric values") @Size(min = 10, max = 10) String phoneNumber) {
 		this.custId = custId;
 		this.custName = custName;
 		this.address = address;
@@ -45,28 +47,33 @@ public class Customer {
 	private int custId;
 	
 	@NotEmpty(message = "Pleas enter your name")
+	@NotNull(message = "Pleas enter your name")
 	@Pattern(regexp="^[A-Za-z]*$",message = "Non-Numeric values only")
 	@Size(min=4,max = 40)
 	@Column(name="cust_Name")
 	private String custName;
 	
 	@NotEmpty(message = "Please enter your address")
+	@NotNull(message = "Please enter your address")
 	@Size(min = 6, max = 50)
 	@Column(name="address")
 	private String address;
 	
 	@NotEmpty(message = "Please enter your city")
+	@NotNull(message = "Please enter your city")
 	@Size(min = 4,max = 30)
 	@Column(name = "city")
 	private String city;
 	
 	@NotEmpty(message = "Please enter your email")
+	@NotNull(message = "Please enter your email")
 	@Email
 	@Size(min = 4,max = 50)
 	@Column(name = "email")
 	private String email;
 	
 	@NotEmpty(message = "Please enter your phoneNumber")
+	@NotNull(message = "Please enter your phoneNumber")
 	@Pattern(regexp="(^$|[0-9]{10})",message = "Please enter 10 numeric values")
 	@Size(min = 10,max = 10)
 	@Column(name = "phone_number")
